@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -51,10 +52,10 @@ public class VocabService {
 
         Query query = new Query();
         if (!isBlank(searchRequest.getWord())) {
-            query.addCriteria(Criteria.where("word").regex(".*" + searchRequest.getWord() + ".*", "i"));
+            query.addCriteria(Criteria.where("word").regex(searchRequest.getWord(), "i"));
         }
         if (nonNull(searchRequest.getEmotion())) {
-            query.addCriteria(Criteria.where("emotion").regex(".*" + searchRequest.getEmotion() + ".*", "i"));
+            query.addCriteria(Criteria.where("emotion").regex(searchRequest.getEmotion(), "i"));
         }
         if (!isBlank(searchRequest.getScore())) {
             var range = searchRequest.getScore().split("-");
@@ -68,14 +69,18 @@ public class VocabService {
                 );
             }
         }
+        var count = mongoTemplate.count(query, Vocab.class);
         if (nonNull(searchRequest.getPage()) || nonNull(searchRequest.getSize())) {
             int page = searchRequest.getPage() != null ? searchRequest.getPage() : DEFAULT_PAGE_NUMBER;
             int size = searchRequest.getSize() != null ? searchRequest.getSize() : DEFAULT_PAGE_SIZE;
 
             Pageable pageable = PageRequest.of(page, size);
             query.with(pageable);
+            //query.with(Sort.by(Sort.Direction.DESC, "word"));
         }
 
-        return mongoTemplate.find(query, Vocab.class);
+        var result = mongoTemplate.find(query, Vocab.class);
+        result.forEach(vocab -> vocab.setTotal(count));
+        return result;
     }
 }

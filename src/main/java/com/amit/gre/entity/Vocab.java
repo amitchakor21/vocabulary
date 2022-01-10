@@ -1,5 +1,6 @@
 package com.amit.gre.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -27,4 +28,5 @@ public class Vocab {
 
     private String emotion;
     private Image image;
+    private Long total;
 }

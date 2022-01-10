@@ -9,4 +9,7 @@ public class VocabPatchRequest {
 
     private boolean simple;
     private boolean known;
+    private Integer familiarLevel;
+    private String notes;
+
 }
