@@ -38,13 +38,6 @@ public class VocabService {
         return vocabRepository.save(vocab);
     }
 
-    public void uploadImage(String id, Image image) {
-        var vocab = vocabRepository.findById(id).orElseThrow();
-        vocab.setImage(image);
-        vocab.setLastUpdated(LocalDateTime.now());
-        vocabRepository.save(vocab);
-    }
-
     public List<Vocab> searchVocabList(SearchRequest searchRequest) {
         if (nonNull(searchRequest.getId())) {
             return List.of(vocabRepository.findById(searchRequest.getId()).orElseThrow());
