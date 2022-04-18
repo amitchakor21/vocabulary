@@ -2,20 +2,17 @@ package com.amit.gre.service;
 
 import com.amit.gre.dto.SearchRequest;
 import com.amit.gre.dto.VocabPatchRequest;
-import com.amit.gre.entity.Image;
 import com.amit.gre.entity.Vocab;
 import com.amit.gre.repository.VocabRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
@@ -34,7 +31,6 @@ public class VocabService {
         Vocab vocab = vocabRepository.findById(id).orElseThrow();
 
         BeanUtils.copyProperties(vocabRequest, vocab);
-        vocab.setLastUpdated(LocalDateTime.now());
         return vocabRepository.save(vocab);
     }
 

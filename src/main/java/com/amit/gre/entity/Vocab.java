@@ -19,9 +19,8 @@ public class Vocab {
 
     private Integer familiarLevel;
 
-    private LocalDateTime lastViewed;
-    private LocalDateTime lastUpdated;
-    private Integer viewedCount;
+    private Boolean trickySpell;
+    private Boolean trickyPronounce;
 
     private Long total;
 }
