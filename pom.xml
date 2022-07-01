@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.amit</groupId>
-	<artifactId>gre</artifactId>
+	<artifactId>vocabulary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gre</name>
-	<description>GRE preparation java service</description>
+	<name>vocabulary</name>
+	<description>vocabulary preparation java service</description>
 	<properties>
 		<java.version>11</java.version>
         <log4j.version>2.17.0</log4j.version>

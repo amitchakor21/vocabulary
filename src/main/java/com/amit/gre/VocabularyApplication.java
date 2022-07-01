@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GreApplication {
+public class VocabularyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GreApplication.class, args);
+		SpringApplication.run(VocabularyApplication.class, args);
 	}
 
 }
