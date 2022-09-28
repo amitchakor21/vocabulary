@@ -35,16 +35,9 @@ public class VocabService {
     }
 
     public List<Vocab> searchVocabList(SearchRequest searchRequest) {
-        if (nonNull(searchRequest.getId())) {
-            return List.of(vocabRepository.findById(searchRequest.getId()).orElseThrow());
-        }
-
         Query query = new Query();
         if (!isBlank(searchRequest.getWord())) {
             query.addCriteria(Criteria.where("word").regex(searchRequest.getWord(), "i"));
-        }
-        if (nonNull(searchRequest.getEmotion())) {
-            query.addCriteria(Criteria.where("emotion").regex(searchRequest.getEmotion(), "i"));
         }
         if (!isBlank(searchRequest.getScore())) {
             var range = searchRequest.getScore().split("-");
@@ -65,7 +58,6 @@ public class VocabService {
 
             Pageable pageable = PageRequest.of(page, size);
             query.with(pageable);
-            //query.with(Sort.by(Sort.Direction.DESC, "word"));
         }
 
         var result = mongoTemplate.find(query, Vocab.class);

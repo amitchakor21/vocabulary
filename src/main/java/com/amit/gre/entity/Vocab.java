@@ -19,8 +19,5 @@ public class Vocab {
 
     private Integer familiarLevel;
 
-    private Boolean trickySpell;
-    private Boolean trickyPronounce;
-
     private Long total;
 }
